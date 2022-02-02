@@ -11,8 +11,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api', scraper, (req, res) => {
-  const { title } = res.locals;
-  res.json({title})
+  const { title, description, url } = res.locals;
+  res.json({ title, description, url })
 })
 
 module.exports = app;
