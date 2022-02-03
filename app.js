@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-  res.send('api for link preview scraping')
+  res.send('https://url-preview-gt.herokuapp.com/api?url=http://www.YOUR_URL')
 });
 
 app.get('/api', scraper, (req, res) => {
