@@ -9,6 +9,12 @@ const scraper = async (req, res, next) => {
     const response = await axios.default.get(url);
     const dom = new JSDOM(response.data);
     const title = dom.window.document.querySelector('title');
+    const manifest = dom.window.document.querySelector('link[rel=manifest]');
+    if (manifest) {
+      const manifestUrl = (url + manifest.getAttribute('href'));
+      const manifestResponse = await axios.get(manifestUrl)
+      details.icons = manifestResponse.data.icons;
+    }
     const metas = dom.window.document.querySelectorAll('meta');
     metas?.forEach(meta => {
       const property = meta.getAttribute('property');
@@ -39,7 +45,8 @@ const scraper = async (req, res, next) => {
       title: title?.text,
       url: url,
       description: details['description'] || details['og:description'],
-      image: bestImg || bestImgs[0]
+      image: bestImg || bestImgs[0],
+      icons: details.icons
     }
 
     res.locals.result = result;
