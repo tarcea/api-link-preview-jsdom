@@ -7,7 +7,7 @@ const scraper = async (req, res, next) => {
     let details ={}
     const { url } = req.query;
     const response = await axios.default.get(url);
-    const dom = new jsdom.JSDOM(response.data);
+    const dom = new JSDOM(response.data);
     const title = dom.window.document.querySelector('title');
     const metas = dom.window.document.querySelectorAll('meta');
     metas?.forEach(meta => {
@@ -35,13 +35,21 @@ const scraper = async (req, res, next) => {
       : 
       details['og:image'] || details['image'];
 
-    res.locals.title = title.text;
-    res.locals.url = url;
-    res.locals.description = details['description'] || details['og:description'];
-    res.locals.image = bestImg || bestImgs[0];
+    const result = {
+      title: title?.text,
+      url: url,
+      description: details['description'] || details['og:description'],
+      image: bestImg || bestImgs[0]
+    }
+
+    res.locals.result = result;
     next();
   } catch (error) {
     next(error);
+    // if (error.message.includes('404')) {
+    //   res.json({message: 'Yo provided an invalid web address', statusCode: 404});
+    //   return;
+    // }
     res.json(error);
   }
 };
