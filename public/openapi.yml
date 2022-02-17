@@ -1,0 +1,63 @@
+openapi: 3.0.0
+servers:
+  - description: API endpoint
+    url: https://url-preview-gt.herokuapp.com
+info:
+  description: Link preview API
+  version: "1.0.0"
+  title: Link preview API
+  contact:
+    email: tarcea@gmail.com
+tags:
+  - name: Link preview API
+    description: generates previews for given urls
+paths:
+  /api:
+    get:
+      tags:
+        - Link preview API
+      summary: generates preview for given URL
+      operationId: Link Preview
+      parameters:
+        - name: url
+          in: query
+          description: status of the application
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: preview generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/linkPreviewResponse"
+        "400":
+          description: failed to get applications, the query param was not provided / not a valid value [completed, rejected, ]
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/linkPreviewError"
+components:
+  schemas:
+    linkPreviewResponse:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "GitHub: Where the world builds software · GitHub"
+        description:
+          type: string
+          example: "GitHub is where over 73 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it."
+        url:
+          type: string
+          example: "https://www.github.com"
+        image:
+          type: string
+          example: "https://github.githubassets.com/images/modules/site/social-cards/github-social.png"
+    linkPreviewError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: some error message
