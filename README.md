@@ -13,3 +13,4 @@ Generates preview for a given URL
 ## API documentation
 
 - https://app.swaggerhub.com/apis-docs/tarcea/api-link_preview_jsdom/1.0.0
+- https://url-preview-gt.herokuapp.com/docs.html
