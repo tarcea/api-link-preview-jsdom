@@ -6,23 +6,30 @@ const scraper = async (req, res, next) => {
   try {
     let details ={}
     const { url } = req.query;
+    const regex = /:\/\/(.[^/]+)/;
+    const domain = url.match(regex)[1];
+    console.log(domain)
     const response = await axios.default.get(url);
     const dom = new JSDOM(response.data);
     const title = dom.window.document.querySelector('title');
-    const manifest = dom.window.document.querySelector('link[rel=manifest]');
-    if (manifest) {
-      const manifestUrl = (url + manifest.getAttribute('href'));
-      const manifestResponse = await axios.get(manifestUrl)
-      details.icons = manifestResponse.data.icons;
-    }
     const metas = dom.window.document.querySelectorAll('meta');
     metas?.forEach(meta => {
       const property = meta.getAttribute('property');
       const metaName = meta.getAttribute('name');
       const content = meta.getAttribute('content');
       const itemProp = meta.getAttribute('itemprop');
+      const metaUrl = meta.getAttribute('url');
       details[property || metaName || itemProp] = content;
     });
+
+    // should be refactored, instead details['og:url'] should be used the domain url 
+    const manifest = dom.window.document.querySelector('link[rel=manifest]');
+    if (manifest) {
+      const manifestUrl = ('https://' + domain + manifest.getAttribute('href'));
+      const manifestResponse = await axios.get(manifestUrl)
+      details.icons = manifestResponse.data.icons;
+    }
+    ///////
 
     const body = dom.window.document.querySelector('body');
     const imgs = Array.from(body.querySelectorAll('img'));
