@@ -4,7 +4,7 @@ Generates preview for a given URL
 
 ## Tech stack
 
-> Node, Express
+> Node, Express, Typescript
 
 ## Example
 
