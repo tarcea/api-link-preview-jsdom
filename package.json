@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --verbose --coverage --detectOpenHandles",
-    "start": "node server.js",
+    "start": "node dist/server.js",
+    "build": "tsc -p .",
     "dev": "nodemon server.js",
     "deploy": "git add . && git commit -m Heroku && git push heroku master"
   },
