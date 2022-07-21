@@ -41,6 +41,7 @@ export const scraper = async (
       const content = meta.getAttribute('content');
       const itemProp = meta.getAttribute('itemprop');
       const metaUrl = meta.getAttribute('url');
+
       if (property) {
         details[property] = content;
       } else if (metaName) {
@@ -58,6 +59,7 @@ export const scraper = async (
     }
     ///////
 
+    const paragraphs = dom.window.document.querySelectorAll('p');
     const body = dom.window.document.querySelector('body');
     const imgs = Array.from(body!.querySelectorAll('img'));
     let bestImgs: string[] = [];
@@ -76,7 +78,10 @@ export const scraper = async (
     const result = {
       title: title?.text,
       url: url,
-      description: details['description'] || details['og:description'],
+      description:
+        details['description'] ||
+        details['og:description'] ||
+        paragraphs[0].textContent,
       image: bestImg || bestImgs[0],
       icons: details.icons,
     };
