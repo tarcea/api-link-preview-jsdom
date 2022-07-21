@@ -81,9 +81,9 @@ export const scraper = async (
       description:
         details['description'] ||
         details['og:description'] ||
-        paragraphs[0].textContent,
+        paragraphs[0]?.textContent,
       image: bestImg || bestImgs[0],
-      icons: details.icons,
+      icons: details?.icons,
     };
 
     res.locals.result = result;
