@@ -8,9 +8,9 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static('public'));
 
-const documentation = 'https://url-preview-gt.herokuapp.com/docs.html';
+const documentation = 'https://url-preview-gt.up.railway.app/docs.html';
 const howToUse =
-  'https://url-preview-gt.herokuapp.com/api?url=http://www.YOUR_URL';
+  'https://url-preview-gt.up.railway.app/api?url=http://www.YOUR_URL';
 
 app.get('/', (req: Request, res: Response) => {
   res.json({ documentation, howToUse });
