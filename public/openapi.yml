@@ -1,10 +1,12 @@
 openapi: 3.0.0
 servers:
-  - description: API endpoint
-    url: https://url-preview-gt.herokuapp.com
+  - description: API server_1
+    url: https://url-preview-gt.up.railway.app
+  - description: API server_2
+    url: https://real-gold-jellyfish-boot.cyclic.app
 info:
   description: Link preview API
-  version: "1.0.0"
+  version: '1.0.0'
   title: Link preview API
   contact:
     email: tarcea@gmail.com
@@ -26,18 +28,18 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: preview generated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/linkPreviewResponse"
-        "400":
+                $ref: '#/components/schemas/linkPreviewResponse'
+        '400':
           description: failed to get applications, the query param was not provided / not a valid value [completed, rejected, ]
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/linkPreviewError"
+                $ref: '#/components/schemas/linkPreviewError'
 components:
   schemas:
     linkPreviewResponse:
@@ -45,16 +47,16 @@ components:
       properties:
         title:
           type: string
-          example: "GitHub: Where the world builds software · GitHub"
+          example: 'GitHub: Where the world builds software · GitHub'
         description:
           type: string
-          example: "GitHub is where over 73 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it."
+          example: 'GitHub is where over 73 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.'
         url:
           type: string
-          example: "https://www.github.com"
+          example: 'https://www.github.com'
         image:
           type: string
-          example: "https://github.githubassets.com/images/modules/site/social-cards/github-social.png"
+          example: 'https://github.githubassets.com/images/modules/site/social-cards/github-social.png'
     linkPreviewError:
       type: object
       properties:
