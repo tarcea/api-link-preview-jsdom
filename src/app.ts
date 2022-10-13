@@ -1,5 +1,5 @@
-import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
+import express, { Application, Request, Response } from 'express';
 import { scraper } from './middlewares';
 
 const app: Application = express();
@@ -8,12 +8,16 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static('public'));
 
-const documentation = 'https://url-preview-gt.up.railway.app/docs.html';
-const howToUse =
-  'https://url-preview-gt.up.railway.app/api?url=http://www.YOUR_URL';
+const documentation = 'docs.html';
+const howToUse = 'api?url=http://www.github.com/tarcea';
 
 app.get('/', (req: Request, res: Response) => {
-  res.json({ documentation, howToUse });
+  const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+
+  res.json({
+    documentation: fullUrl + documentation,
+    howToUse: fullUrl + howToUse,
+  });
 });
 
 app.get('/api', scraper, (req, res) => {
