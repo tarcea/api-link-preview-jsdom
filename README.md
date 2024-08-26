@@ -8,9 +8,10 @@ Generates preview for a given URL
 
 ## Example
 
-- https://real-gold-jellyfish-boot.cyclic.app/api?url=https://www.github.com
+- https://expense-tracker-efe79.ew.r.appspot.com/api?url=https://www.github.com
+
 
 ## API documentation
 
 - https://app.swaggerhub.com/apis-docs/tarcea/api-link_preview_jsdom/1.0.0
-- https://real-gold-jellyfish-boot.cyclic.app/docs.html
+- https://expense-tracker-efe79.ew.r.appspot.com/docs.html
